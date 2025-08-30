@@ -1,5 +1,5 @@
 # EX01 Developing a Simple Webserver
-## Date:
+## Date:30/07/2025
 
 ## AIM:
 To develop a simple webserver to serve html pages and display the list of protocols in TCP/IP Protocol Suite.
@@ -37,8 +37,48 @@ Open a browser and navigate to http://127.0.0.1:8000 (or the assigned port).
 
 ## PROGRAM:
 
+```
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+htmlcontent = '''
+<!doctype html>
+<html>
+<head>
+<title> Sample </title>
+</head>
+<body>
+<font color="blue" face="Lucida Handwriting" size="120">
+            <h1 align="center"> <b> List of protocol in TCP/IP Model</b></h1>
+        </font>
+        <font color="red">
+        <h2>
+            Application Layer - HTTP, FTP, DNS, Telnet & SSH <br>
+            Transport Layer - TCP & UDP <br>
+            Network Layer - IPV4/IPV6 <br>
+        </h2>
+        </font>
+</body>
+</html>
+'''
+class ServerResponse(BaseHTTPRequestHandler):
+    def do_GET(self):
+        print("Get request received...")
+        self.send_response(200) 
+        self.send_header("content-type", "text/html")       
+        self.end_headers()
+        self.wfile.write(htmlcontent.encode())
+
+print("This is my webserver") 
+server_address =('',5000)
+httpd = HTTPServer(server_address,ServerResponse)
+httpd.serve_forever()
+
+```
 
 ## OUTPUT:
+
+<img width="1830" height="823" alt="Screenshot 2025-08-30 133907" src="https://github.com/user-attachments/assets/aca24bb3-b2e8-4583-8e7a-3c2415c589cd" />
+
 
 
 ## RESULT:
